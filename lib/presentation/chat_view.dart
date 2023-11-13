@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'chat_viewmodel.dart';
 
 class ChatView extends StatefulWidget {
   const ChatView({super.key});
@@ -9,19 +11,28 @@ class ChatView extends StatefulWidget {
 
 class _ChatViewState extends State<ChatView> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    late String test = '';
+    final viewModel = context.watch<ChatViewModel>();
     return MaterialApp(
       title: 'Chat with WS',
       home: Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: () => {},
-          ),
+              icon: const Icon(Icons.refresh),
+              onPressed: () => setState(() {
+                    print(viewModel.result);
+                    test = viewModel.result;
+                  })),
         ),
         body: Column(
           children: [
-            const Expanded(
+            Expanded(
               flex: 8,
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
@@ -30,8 +41,8 @@ class _ChatViewState extends State<ChatView> {
                   child: Column(
                     children: [
                       Text(
-                        'test',
-                        style: TextStyle(fontSize: 40),
+                        test,
+                        style: const TextStyle(fontSize: 40),
                       ),
                     ],
                   ),

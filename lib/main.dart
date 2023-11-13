@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_web_socket/presentation/chat_view.dart';
+import 'package:flutter_web_socket/presentation/chat_viewmodel.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +25,8 @@ class _MyAppState extends State<MyApp> {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const ChatView(),
+      home: ChangeNotifierProvider(
+          create: (context) => ChatViewModel(), child: const ChatView()),
     );
   }
 }
